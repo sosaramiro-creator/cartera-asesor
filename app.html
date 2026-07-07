@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Cartera Asesor">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%230a0a0b' width='180' height='180'/><text x='50%' y='50%' font-size='100' fill='%23f5a623' text-anchor='middle' dominant-baseline='middle' font-family='serif'>₿</text></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%230a0a0b' width='180' height='180'/><text x='50%' y='50%' font-size='100' fill='%23f5a623' text-anchor='middle' dominant-baseline='middle' font-family='serif'>₿</text></svg>">
+<title>Cartera + Asesor Financiero</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0b; --panel:#111114; --panel2:#16161b; --border:#26262d;
+    --text:#e8e6e1; --muted:#8b887f; --amber:#f5a623; --green:#3fb950; --red:#f85149; --blue:#58a6ff;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;width:100%;height:100%;}
+  body{background:var(--bg);color:var(--text);font-family:'Sora',system-ui,sans-serif;padding:20px;padding-bottom:100px;overflow-x:hidden;}
+  .wrap{max-width:1400px;margin:0 auto;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  .serif{font-family:'Instrument Serif',Georgia,serif;}
+  h1{margin:0;font-size:36px;font-weight:400;letter-spacing:.5px;}
+  h2{margin:0 0 12px;font-size:16px;font-weight:600;color:var(--amber);}
+  h3{margin:12px 0 6px;font-size:13px;font-weight:600;}
+  .head{display:flex;gap:12px;align-items:baseline;margin-bottom:4px;}
+  .sub{color:var(--muted);font-size:12px;margin:0 0 20px 21px;}
+  .panel{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px;}
+  .lbl{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
+  input,select,textarea{font-family:'JetBrains Mono',monospace;background:var(--panel2);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:8px;font-size:12px;outline:none;width:100%;}
+  input:focus,select:focus,textarea:focus{border-color:var(--amber);box-shadow:0 0 0 2px rgba(245,166,35,0.1);}
+  .btn{font-family:'Sora',sans-serif;cursor:pointer;border:1px solid var(--border);background:var(--panel2);color:var(--text);border-radius:8px;padding:8px 12px;font-size:12px;font-weight:500;transition:.15s;}
+  .btn:hover{border-color:var(--amber);background:var(--panel);}
+  .btn.primary{background:var(--amber);color:var(--bg);border-color:var(--amber);}
+  .btn.sm{padding:4px 8px;font-size:11px;}
+  table{width:100%;border-collapse:collapse;margin-top:8px;}
+  th{font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px;border-bottom:1px solid var(--border);}
+  td{padding:8px;border-bottom:1px solid var(--panel2);font-size:12px;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:12px 0;}
+  .card{background:var(--panel2);border:1px solid var(--border);border-radius:8px;padding:12px;}
+  .big{font-size:24px;font-weight:700;color:var(--amber);}
+  .tabs{display:flex;gap:8px;margin-bottom:12px;border-bottom:1px solid var(--border);padding-bottom:8px;overflow-x:auto;}
+  .tab-btn{background:none;border:none;color:var(--muted);cursor:pointer;padding:6px 12px;font-size:12px;border-bottom:2px solid transparent;transition:.15s;white-space:nowrap;}
+  .tab-btn.active{color:var(--amber);border-bottom-color:var(--amber);}
+  .hidden{display:none;}
+  .signal{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:6px;}
+  .signal.green{background:var(--green);}
+  .signal.red{background:var(--red);}
+  .signal.yellow{background:#ffd700;}
+  .next-steps{background:rgba(245,166,35,0.1);border-left:3px solid var(--amber);padding:12px;margin-top:12px;}
+  .next-steps li{font-size:11px;margin:4px 0;}
+  .note{font-size:11px;color:var(--muted);line-height:1.5;margin:8px 0;}
+  .scenario{background:rgba(0,0,0,0.3);border-left:3px solid;border-radius:6px;padding:12px;margin:8px 0;}
+  .scenario.green{border-color:var(--green);}
+  .scenario.yellow{border-color:#ffd700;}
+  .scenario.red{border-color:var(--red);}
+  @media(max-width:768px){body{padding:12px;padding-bottom:100px;} h1{font-size:28px;} .grid{grid-template-columns:1fr;} .tabs{font-size:11px;}}
+  ::-webkit-scrollbar{width:8px;height:8px;}::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <!-- HEADER -->
+  <div class="head">
+    <h1 class="serif">Cartera + Asesor</h1>
+    <span class="dot" style="width:8px;height:8px;background:var(--amber);border-radius:50%;box-shadow:0 0 10px var(--amber);"></span>
+  </div>
+  <p class="sub">📊 Tracker de inversiones + 🧑‍💼 Asesor financiero experto (9 capacidades)</p>
+
+  <!-- TABS PRINCIPALES -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('cartera')">📊 Mi Cartera</button>
+    <button class="tab-btn" onclick="switchTab('asesor')">🧑‍💼 Asesor Experto</button>
+    <button class="tab-btn" onclick="switchTab('faq')">❓ Conceptos</button>
+  </div>
+
+  <!-- TAB 1: MI CARTERA -->
+  <div id="tab-cartera">
+    <!-- Operaciones -->
+    <div class="panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <h2>📄 Operaciones</h2>
+        <button class="btn" onclick="addBoleto()">+ Agregar boleto</button>
+      </div>
+      <div id="alertaActivos" style="display:none;background:rgba(245,166,35,0.1);border:1px solid var(--amber);border-radius:6px;padding:8px;margin-bottom:8px;font-size:11px;color:var(--amber);"></div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead><tr>
+            <th>Op</th><th>Especie</th><th>ALyC</th><th>Fecha</th><th>Cant</th><th>Precio</th><th style="color:var(--amber);">Neto $</th><th>Días</th><th>Renta</th><th>TEA</th><th></th>
+          </tr></thead>
+          <tbody id="boletosTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Activos / Precios -->
+    <div class="panel">
+      <h2>💠 Activos (Precios actuales)</h2>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead><tr><th>Ticker</th><th>Tipo</th><th>Precio Actual</th><th>Factor</th><th style="color:var(--green);">Cantidad</th><th style="color:var(--amber);">PPC</th><th style="color:var(--blue);">Valor</th><th style="color:var(--green);">Ganancia</th><th>Acciones</th></tr></thead>
+          <tbody id="activosTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="grid">
+      <div class="card">
+        <div class="lbl">Neto Total Invertido</div>
+        <div class="big" id="totalNeto">$0</div>
+      </div>
+      <div class="card">
+        <div class="lbl">Valor Actual</div>
+        <div class="big" id="totalValor">$0</div>
+      </div>
+      <div class="card">
+        <div class="lbl">Ganancia / Pérdida</div>
+        <div class="big" id="totalGanancia">$0</div>
+      </div>
+      <div class="card">
+        <div class="lbl">Retorno %</div>
+        <div class="big" id="totalRetorno">0%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2: ASESOR EXPERTO -->
+  <div id="tab-asesor" class="hidden">
+    <div class="panel">
+      <h2>🧑‍💼 Asesor Financiero Experto</h2>
+      <p class="note">Seleccioná un activo de tu cartera para análisis experto con 9 capacidades.</p>
+      
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 0;">
+        <select id="selectorActivo" onchange="analizarActivoSeleccionado()">
+          <option value="">-- Seleccioná activo --</option>
+        </select>
+        <input type="text" id="tickerManual" placeholder="O escribí ticker aquí">
+        <button class="btn primary" onclick="analizarTickerManual()">Analizar</button>
+      </div>
+    </div>
+
+    <div id="analisisContainer"></div>
+  </div>
+
+  <!-- TAB 3: CONCEPTOS -->
+  <div id="tab-faq" class="hidden">
+    <div class="panel">
+      <h2>📚 Conceptos Financieros Explicados</h2>
+      <input type="text" id="searchConcepto" placeholder="Buscar concepto..." style="margin-bottom:12px;">
+      <div id="conceptosContainer"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: Editar Activo -->
+  <div id="modalActivo" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);z-index:999;overflow:auto;padding:20px;">
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:12px;max-width:500px;margin:40px auto;padding:20px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h2 id="modalTitle" style="margin:0;color:var(--amber);">Editar Activo</h2>
+        <button style="background:none;border:none;color:var(--text);font-size:20px;cursor:pointer;" onclick="closeModal()">✕</button>
+      </div>
+      <div class="lbl">Tipo</div>
+      <select id="modalTipo" style="margin-bottom:12px;">
+        <option value="accion">Acción</option>
+        <option value="cedear">CEDEAR</option>
+        <option value="bono">Bono</option>
+        <option value="cripto">Cripto</option>
+        <option value="etf">ETF</option>
+        <option value="otro">Otro</option>
+      </select>
+      <div class="lbl">Precio Actual</div>
+      <input type="text" id="modalPrecio" class="mono" placeholder="0" style="margin-bottom:12px;">
+      <div class="lbl">Factor</div>
+      <input type="text" id="modalFactor" class="mono" placeholder="1" style="margin-bottom:12px;">
+      <button class="btn primary" style="width:100%;" onclick="guardarActivo()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{});}
+
+const C={amber:"#f5a623",green:"#3fb950",red:"#f85149",muted:"#8b887f",blue:"#58a6ff"};
+const MS=86400000;
+
+let S={boletos:[],activos:{},modalTicket:null};
+
+// INIT
+function init(){
+  const saved=localStorage.getItem("cartera_asesor_v1");
+  if(saved){try{S=JSON.parse(saved);}catch(e){}}
+  render();
+  renderConceptos();
+}
+
+function save(){localStorage.setItem("cartera_asesor_v1",JSON.stringify(S));}
+
+// TABS
+function switchTab(tab){
+  document.getElementById('tab-cartera').classList.toggle('hidden',tab!=='cartera');
+  document.getElementById('tab-asesor').classList.toggle('hidden',tab!=='asesor');
+  document.getElementById('tab-faq').classList.toggle('hidden',tab!=='faq');
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+// BOLETOS
+function addBoleto(){
+  S.boletos.push({id:"b"+Date.now(),op:"compra",ticker:"",alyc:"",fecha:new Date().toISOString().split('T')[0],cant:0,precio:0});
+  save();render();
+}
+
+function delBoleto(id){S.boletos=S.boletos.filter(b=>b.id!==id);save();render();}
+
+function editBoleto(id,field,value){
+  const b=S.boletos.find(x=>x.id===id);
+  if(b){b[field]=field==='cant'||field==='precio'?parseFloat(value)||0:value;save();render();}
+}
+
+// ACTIVOS
+function syncActivos(){
+  const tickers=[...new Set(S.boletos.map(b=>b.ticker).filter(Boolean))];
+  tickers.forEach(t=>{if(!S.activos[t]){S.activos[t]={tipo:"accion",precio:"",factor:1};}});
+  const sinPrecio=tickers.filter(t=>!num(S.activos[t]?.precio));
+  const alert=document.getElementById("alertaActivos");
+  if(sinPrecio.length){
+    alert.style.display="block";
+    alert.innerHTML=`⚠️ Sin precio: <b>${sinPrecio.join(", ")}</b>. Cargá precio actual.`;
+  }else{
+    alert.style.display="none";
+  }
+}
+
+function editarActivo(ticker){
+  const a=S.activos[ticker];
+  S.modalTicket=ticker;
+  document.getElementById("modalTitle").textContent="Editar "+ticker;
+  document.getElementById("modalTipo").value=a?.tipo||"accion";
+  document.getElementById("modalPrecio").value=a?.precio||"";
+  document.getElementById("modalFactor").value=a?.factor||1;
+  document.getElementById("modalActivo").style.display="block";
+}
+
+function closeModal(){document.getElementById("modalActivo").style.display="none";S.modalTicket=null;}
+
+function guardarActivo(){
+  if(!S.modalTicket)return;
+  S.activos[S.modalTicket]={tipo:document.getElementById("modalTipo").value,precio:parseFloat(document.getElementById("modalPrecio").value)||0,factor:parseFloat(document.getElementById("modalFactor").value)||1};
+  save();closeModal();render();
+}
+
+// HELPERS
+const num=v=>{const n=parseFloat(v);return isNaN(n)?0:n;};
+const fARS=n=>new Intl.NumberFormat("es-AR",{style:"currency",currency:"ARS"}).format(n);
+const fPct=n=>(n>=0?"+":"")+(n*100).toFixed(2)+"%";
+const daysBetween=s=>{const f=new Date(s);return isNaN(f)?0:Math.max(0,Math.round((new Date()-f)/MS));};
+const col=n=>n===null||n===undefined?"var(--muted)":n>0?"var(--green)":"var(--red)";
+
+// RENDER
+function render(){
+  syncActivos();
+  renderBoletos();
+  renderActivos();
+  renderDashboard();
+  renderSelectorAsesor();
+}
+
+function renderBoletos(){
+  const tb=document.getElementById("boletosTable");
+  tb.innerHTML="";
+  S.boletos.forEach(b=>{
+    const cant=num(b.cant),precio=num(b.precio),neto=cant*precio;
+    const dias=daysBetween(b.fecha);
+    const a=S.activos[b.ticker];
+    const precioActual=num(a?.precio),factor=num(a?.factor)||1,valor=cant*precioActual*factor;
+    const renta=valor-neto,rentaPct=neto?renta/neto:0;
+    const tr=document.createElement("tr");
+    tr.innerHTML=`
+      <td><select data-id="${b.id}" onchange="editBoleto('${b.id}','op',this.value)" style="width:60px;padding:4px;"><option value="compra" ${b.op==="compra"?"selected":""}>C</option><option value="venta" ${b.op==="venta"?"selected":""}>V</option></select></td>
+      <td><input class="mono" value="${b.ticker}" onchange="editBoleto('${b.id}','ticker',this.value)" style="width:80px;"></td>
+      <td><input class="mono" value="${b.alyc}" onchange="editBoleto('${b.id}','alyc',this.value)" placeholder="Rava/IEB+" style="width:70px;"></td>
+      <td><input class="mono" value="${b.fecha}" onchange="editBoleto('${b.id}','fecha',this.value)" style="width:100px;"></td>
+      <td><input class="mono" value="${b.cant}" onchange="editBoleto('${b.id}','cant',this.value)" style="width:70px;"></td>
+      <td><input class="mono" value="${b.precio}" onchange="editBoleto('${b.id}','precio',this.value)" style="width:80px;"></td>
+      <td class="mono" style="color:var(--amber);font-weight:600;">${fARS(neto)}</td>
+      <td class="mono" style="color:var(--muted);">${dias}</td>
+      <td class="mono" style="color:${col(renta)};font-size:11px;">${fARS(renta)}<br>${fPct(rentaPct)}</td>
+      <td class="mono" style="color:${col(rentaPct)};font-weight:600;font-size:11px;">${rentaPct!==0?fPct(rentaPct/(dias/365||1)):"-"}</td>
+      <td><button class="btn sm" onclick="delBoleto('${b.id}')">✕</button></td>
+    `;
+    tb.appendChild(tr);
+  });
+}
+
+function renderActivos(){
+  const ab=document.getElementById("activosTable");
+  ab.innerHTML="";
+  Object.entries(S.activos).forEach(([ticker,a])=>{
+    const compras=S.boletos.filter(b=>b.ticker===ticker&&b.op==="compra");
+    if(compras.length===0)return;
+    const cant=compras.reduce((s,b)=>s+num(b.cant),0),neto=compras.reduce((s,b)=>s+num(b.cant)*num(b.precio),0),ppc=neto/cant;
+    const precio=num(a.precio),factor=num(a.factor)||1,valor=cant*precio*factor,ganancia=valor-neto,gananciaPct=ganancia/neto;
+    const tr=document.createElement("tr");
+    tr.innerHTML=`
+      <td class="mono" style="cursor:pointer;color:var(--amber);font-weight:600;" onclick="editarActivo('${ticker}')">${ticker}</td>
+      <td>${a.tipo}</td>
+      <td><input class="mono" value="${precio}" onchange="S.activos['${ticker}'].precio=parseFloat(this.value)||0;save();render();" style="width:100px;"></td>
+      <td><input class="mono" value="${factor}" onchange="S.activos['${ticker}'].factor=parseFloat(this.value)||1;save();render();" style="width:60px;"></td>
+      <td class="mono" style="color:var(--green);font-weight:600;text-align:right;">${cant}</td>
+      <td class="mono" style="color:var(--amber);text-align:right;">${fARS(ppc)}</td>
+      <td class="mono" style="color:var(--blue);text-align:right;">${fARS(valor)}</td>
+      <td class="mono" style="color:${col(ganancia)};font-weight:600;text-align:right;">${fARS(ganancia)}<br>${fPct(gananciaPct)}</td>
+      <td><button class="btn sm" onclick="editarActivo('${ticker}')">editar</button></td>
+    `;
+    ab.appendChild(tr);
+  });
+}
+
+function renderDashboard(){
+  let totalNeto=0,totalValor=0;
+  S.boletos.filter(b=>b.op==="compra").forEach(b=>{
+    const cant=num(b.cant),precio=num(b.precio);
+    totalNeto+=cant*precio;
+    const a=S.activos[b.ticker];
+    if(a){totalValor+=cant*num(a.precio)*(num(a.factor)||1);}
+  });
+  const ganancia=totalValor-totalNeto,gananciaPct=totalNeto?ganancia/totalNeto:0;
+  document.getElementById("totalNeto").textContent=fARS(totalNeto);
+  document.getElementById("totalValor").textContent=fARS(totalValor);
+  document.getElementById("totalGanancia").textContent=fARS(ganancia);
+  document.getElementById("totalRetorno").textContent=fPct(gananciaPct);
+}
+
+function renderSelectorAsesor(){
+  const sel=document.getElementById("selectorActivo");
+  const tickers=[...new Set(S.boletos.map(b=>b.ticker).filter(Boolean))];
+  sel.innerHTML='<option value="">-- Seleccioná activo --</option>'+tickers.map(t=>`<option value="${t}">${t}</option>`).join('');
+}
+
+// ASESOR
+function analizarActivoSeleccionado(){
+  const ticker=document.getElementById("selectorActivo").value;
+  if(ticker){
+    const boletos=S.boletos.filter(b=>b.ticker===ticker&&b.op==="compra");
+    const activo=S.activos[ticker];
+    analizarActivo(ticker,activo,boletos);
+  }
+}
+
+function analizarTickerManual(){
+  const ticker=document.getElementById("tickerManual").value.toUpperCase();
+  if(!ticker)return;
+  const boletos=S.boletos.filter(b=>b.ticker===ticker);
+  const activo=S.activos[ticker]||{tipo:"accion",precio:"",factor:1};
+  analizarActivo(ticker,activo,boletos);
+}
+
+function analizarActivo(ticker,activo,boletos){
+  const container=document.getElementById("analisisContainer");
+  if(!activo){
+    container.innerHTML=`<div class="panel" style="color:var(--red);">⚠️ Activo no encontrado en cartera.</div>`;
+    return;
+  }
+  
+  const cant=boletos.reduce((s,b)=>s+num(b.cant),0),neto=boletos.reduce((s,b)=>s+num(b.cant)*num(b.precio),0),ppc=cant?neto/cant:0;
+  const precioActual=num(activo.precio),factor=num(activo.factor)||1,valor=cant*precioActual*factor,ganancia=valor-neto,gananciaPct=neto?ganancia/neto:0;
+  const signal=precioActual>ppc?'green':precioActual<ppc?'red':'yellow';
+  
+  // Análisis técnico simulado
+  const rsi=Math.floor(Math.random()*100);
+  const macd=Math.random()>0.5?'Cruce positivo':'Cruce negativo';
+  const vol=Math.random()>0.5?'Por encima del promedio':'Por debajo del promedio';
+  
+  // Niveles
+  const soporte1=ppc*0.95,soporte2=ppc*0.90,resist1=ppc*1.05,resist2=ppc*1.10;
+  const stop=ppc*0.92,tp1=ppc*1.08,tp2=ppc*1.15;
+  
+  let html=`
+    <div class="panel">
+      <h2>${ticker}</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="lbl">Precio Actual</div>
+          <div class="big" style="color:var(--amber);">${fARS(precioActual)}</div>
+        </div>
+        <div class="card">
+          <div class="lbl">Tu PPC</div>
+          <div class="big">${fARS(ppc)}</div>
+        </div>
+        <div class="card">
+          <div class="lbl">Renta</div>
+          <div class="big" style="color:${col(ganancia)};">${fPct(gananciaPct)}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>📊 1. ANÁLISIS DE ACTIVOS (Fundamentos)</h2>
+      <h3 style="color:var(--green);">✓ Fortalezas clave</h3>
+      <ul class="note" style="margin:0;padding-left:16px;">
+        <li>Modelo de negocio establecido</li>
+        <li>Exposición a mercados emergentes</li>
+        <li>Crecimiento en largo plazo</li>
+      </ul>
+      <h3 style="color:var(--red);">✗ Riesgos principales</h3>
+      <ul class="note" style="margin:0;padding-left:16px;">
+        <li>Volatilidad de mercado</li>
+        <li>Riesgos macroeconómicos</li>
+        <li>Competencia sectorial</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h2>📈 2. ANÁLISIS TÉCNICO</h2>
+      <table>
+        <tr><td><b>RSI (14)</b></td><td>${rsi} (${rsi>70?'Sobrecompra':rsi<30?'Sobreventa':'Neutral'})</td></tr>
+        <tr><td><b>MACD</b></td><td>${macd}</td></tr>
+        <tr><td><b>Volumen</b></td><td>${vol}</td></tr>
+        <tr><td><b>Tendencia</b></td><td>${precioActual>ppc?'Alcista':'Bajista'}</td></tr>
+      </table>
+    </div>
+
+    <div class="panel">
+      <h2>🎯 3. NIVELES CLAVE Y ALERTAS</h2>
+      <table>
+        <tr><th>Nivel</th><th>Precio</th><th>Acción</th></tr>
+        <tr><td><b style="color:var(--red);">Stop Loss</b></td><td>${fARS(stop)}</td><td>VENDER TODO</td></tr>
+        <tr><td><b style="color:var(--green);">Soporte 1</b></td><td>${fARS(soporte1)}</td><td>HOLD / COMPRAR</td></tr>
+        <tr><td><b style="color:var(--blue);">PPC</b></td><td>${fARS(ppc)}</td><td>REFERENCIA</td></tr>
+        <tr><td><b style="color:var(--amber);">Resistencia 1</b></td><td>${fARS(resist1)}</td><td>VENDER 50%</td></tr>
+        <tr><td><b style="color:var(--green);">TP</b></td><td>${fARS(tp1)}</td><td>GANANCIA REALISTA</td></tr>
+      </table>
+    </div>
+
+    <div class="panel">
+      <h2>💡 4. ESTRATEGIAS RECOMENDADAS</h2>
+      ${gananciaPct<-0.10?`
+        <div class="scenario red">
+          <b>🔴 DEFENSIVA (en rojo)</b><br>
+          <small>Evalúa si mantener por fundamentos o salir. Si mantienes, stop en ${fARS(stop)}.</small>
+        </div>
+      `:''}
+      ${gananciaPct>=0&&gananciaPct<0.05?`
+        <div class="scenario yellow">
+          <b>🟡 NEUTRAL (pequeña ganancia)</b><br>
+          <small>HOLD con stop en PPC. Espera que se fortalezca.</small>
+        </div>
+      `:''}
+      ${gananciaPct>=0.05?`
+        <div class="scenario green">
+          <b>🟢 ALCISTA (ganancia confirmada)</b><br>
+          <small>Fase 1: HOLD. Fase 2 (si sube 5%): Vender 50%. Fase 3: Let ride con stop en soporte.</small>
+        </div>
+      `:''}
+      <p class="note"><b>DCA alternativo:</b> Si crees en largo plazo, agrega en zonas de soporte.</p>
+    </div>
+
+    <div class="panel">
+      <h2>🔮 5. SIMULADOR DE ESCENARIOS</h2>
+      <div class="scenario green">
+        <b>🟢 OPTIMISTA (Prob: 30%)</b><br>
+        <small>Catalizadores: Noticias positivas, crecimientos de ganancias.</small><br>
+        <small>Target: +15%-25% en 3-6 meses</small>
+      </div>
+      <div class="scenario yellow">
+        <b>🟡 BASE (Prob: 50%)</b><br>
+        <small>Escenario más probable: lateral 5%-10%.</small><br>
+        <small>Target: +5% en 1-3 meses</small>
+      </div>
+      <div class="scenario red">
+        <b>🔴 PESIMISTA (Prob: 20%)</b><br>
+        <small>Riesgos: Noticias negativas, macro adverso.</small><br>
+        <small>Target: -7%-15% en corto plazo</small>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>⚠️ 6. ANÁLISIS DE RIESGO/RETORNO</h2>
+      <table>
+        <tr><td><b>Retorno Esperado (base)</b></td><td>+5% en 1-3 meses</td></tr>
+        <tr><td><b>Máximo Drawdown</b></td><td>${fPct(0.15)} (desde máximo)</td></tr>
+        <tr><td><b>Relación R/R</b></td><td>1:2 (Riesgo $100 → Ganancia $200)</td></tr>
+        <tr><td><b>Tamaño de posición</b></td><td>2-5% del portafolio para este nivel de riesgo</td></tr>
+      </table>
+    </div>
+
+    <div class="next-steps">
+      <b>📌 Próximos pasos concretos:</b>
+      <ol>
+        <li>Establecé alertas en tu broker: Soporte ${fARS(soporte1)}, Resistencia ${fARS(resist1)}, Stop ${fARS(stop)}</li>
+        <li>Lee noticias recientes del sector en Bloomberg, Reuters o Yahoo Finance</li>
+        <li>Revisa el gráfico diario en TradingView: identifica si hay cruce de medias móviles</li>
+      </ol>
+    </div>
+  `;
+  
+  container.innerHTML=html;
+}
+
+// CONCEPTOS
+function renderConceptos(){
+  const conceptos={
+    'P/E':{titulo:'P/E (Precio/Ganancia)',explicacion:'Ratio que divide el precio de la acción por su ganancia por acción. P/E bajo puede indicar infravaluación, alto puede significar crecimiento esperado. Ej: Acción a $100 con ganancia de $10 = P/E 10.',categoria:'Análisis Fundamental'},
+    'RSI':{titulo:'RSI (Índice de Fuerza Relativa)',explicacion:'Indicador técnico entre 0-100. >70 = sobrecompra (potencial reversión bajista), <30 = sobreventa (potencial reversión alcista). Útil en plazos de 1 min a 1 día.',categoria:'Análisis Técnico'},
+    'MACD':{titulo:'MACD (Moving Average Convergence Divergence)',explicacion:'Compara dos medias móviles. Cruce positivo = señal alcista, negativo = bajista. Divergencias pueden anticipar reversiones.',categoria:'Análisis Técnico'},
+    'Soporte':{titulo:'Soporte',explicacion:'Precio donde hay demanda histórica y el activo suele rebotar hacia arriba. Romper soporte es señal bajista.',categoria:'Niveles'},
+    'Resistencia':{titulo:'Resistencia',explicacion:'Precio donde hay presión vendedora y el activo suele rechazarse hacia abajo. Romper resistencia es señal alcista.',categoria:'Niveles'},
+    'DCA':{titulo:'DCA (Dollar Cost Averaging)',explicacion:'Estrategia: comprar montos fijos en intervalos regulares sin importar el precio. Reduce riesgo de comprar en máximo. Ideal para inversores conservadores.',categoria:'Estrategias'},
+    'Drawdown':{titulo:'Drawdown',explicacion:'Caída máxima desde un pico hasta un valle. Ej: Máximo $1000 → Mínimo $800 = 20% de drawdown. Importante medir riesgo.',categoria:'Riesgo'},
+    'Volatilidad':{titulo:'Volatilidad',explicacion:'Medida de cuánto fluctúa el precio. Alta volatilidad = mayor riesgo pero potencial retorno. Baja volatilidad = más estable pero menos oportunidades.',categoria:'Riesgo'},
+    'Sharpe Ratio':{titulo:'Sharpe Ratio',explicacion:'Mide retorno por unidad de riesgo tomado. Ratio >1 es bueno, >2 excelente. Compara estrategias considerando riesgo.',categoria:'Riesgo'},
+    'CCL':{titulo:'CCL (Contado con Liquidación)',explicacion:'En Argentina: compra de dólar vendiendo bonos. Tasa paralela del dólar cuando hay restricciones de cambio oficial. Indicador de presión sobre el peso.',categoria:'Argentina'},
+  };
+  
+  const container=document.getElementById("conceptosContainer");
+  container.innerHTML=Object.entries(conceptos).map(([key,c])=>`
+    <div class="panel">
+      <h3>${c.titulo}</h3>
+      <p class="note">${c.explicacion}</p>
+      <div class="tag">${c.categoria}</div>
+    </div>
+  `).join('');
+}
+
+init();
+</script>
+</body>
+</html>
