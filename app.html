@@ -8,8 +8,6 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Cartera Asesor">
 <link rel="manifest" href="manifest.json">
-<link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%230a0a0b' width='180' height='180'/><text x='50%' y='50%' font-size='100' fill='%23f5a623' text-anchor='middle' dominant-baseline='middle' font-family='serif'>₿</text></svg>">
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%230a0a0b' width='180' height='180'/><text x='50%' y='50%' font-size='100' fill='%23f5a623' text-anchor='middle' dominant-baseline='middle' font-family='serif'>₿</text></svg>">
 <title>Cartera + Asesor Financiero</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@400;500;600;700&display=swap">
 <style>
@@ -19,14 +17,12 @@
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;width:100%;height:100%;}
-  body{background:var(--bg);color:var(--text);font-family:'Sora',system-ui,sans-serif;padding:20px;padding-bottom:100px;overflow-x:hidden;}
+  body{background:var(--bg);color:var(--text);font-family:'Sora',system-ui,sans-serif;padding:20px;padding-bottom:100px;}
   .wrap{max-width:1400px;margin:0 auto;}
   .mono{font-family:'JetBrains Mono',monospace;}
   .serif{font-family:'Instrument Serif',Georgia,serif;}
-  h1{margin:0;font-size:36px;font-weight:400;letter-spacing:.5px;}
+  h1{margin:0;font-size:36px;font-weight:400;}
   h2{margin:0 0 12px;font-size:16px;font-weight:600;color:var(--amber);}
-  h3{margin:12px 0 6px;font-size:13px;font-weight:600;}
-  .head{display:flex;gap:12px;align-items:baseline;margin-bottom:4px;}
   .sub{color:var(--muted);font-size:12px;margin:0 0 20px 21px;}
   .panel{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px;}
   .lbl{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
@@ -35,7 +31,7 @@
   .btn{font-family:'Sora',sans-serif;cursor:pointer;border:1px solid var(--border);background:var(--panel2);color:var(--text);border-radius:8px;padding:8px 12px;font-size:12px;font-weight:500;transition:.15s;}
   .btn:hover{border-color:var(--amber);background:var(--panel);}
   .btn.primary{background:var(--amber);color:var(--bg);border-color:var(--amber);}
-  .btn.sm{padding:4px 8px;font-size:11px;}
+  .btn.danger{border-color:var(--red);color:var(--red);}
   table{width:100%;border-collapse:collapse;margin-top:8px;}
   th{font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px;border-bottom:1px solid var(--border);}
   td{padding:8px;border-bottom:1px solid var(--panel2);font-size:12px;}
@@ -46,17 +42,9 @@
   .tab-btn{background:none;border:none;color:var(--muted);cursor:pointer;padding:6px 12px;font-size:12px;border-bottom:2px solid transparent;transition:.15s;white-space:nowrap;}
   .tab-btn.active{color:var(--amber);border-bottom-color:var(--amber);}
   .hidden{display:none;}
-  .signal{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:6px;}
-  .signal.green{background:var(--green);}
-  .signal.red{background:var(--red);}
-  .signal.yellow{background:#ffd700;}
-  .next-steps{background:rgba(245,166,35,0.1);border-left:3px solid var(--amber);padding:12px;margin-top:12px;}
-  .next-steps li{font-size:11px;margin:4px 0;}
   .note{font-size:11px;color:var(--muted);line-height:1.5;margin:8px 0;}
-  .scenario{background:rgba(0,0,0,0.3);border-left:3px solid;border-radius:6px;padding:12px;margin:8px 0;}
-  .scenario.green{border-color:var(--green);}
-  .scenario.yellow{border-color:#ffd700;}
-  .scenario.red{border-color:var(--red);}
+  .success{color:var(--green);background:rgba(63,185,80,0.1);border:1px solid var(--green);border-radius:6px;padding:8px;margin:8px 0;font-size:11px;}
+  .error{color:var(--red);background:rgba(248,81,73,0.1);border:1px solid var(--red);border-radius:6px;padding:8px;margin:8px 0;font-size:11px;}
   @media(max-width:768px){body{padding:12px;padding-bottom:100px;} h1{font-size:28px;} .grid{grid-template-columns:1fr;} .tabs{font-size:11px;}}
   ::-webkit-scrollbar{width:8px;height:8px;}::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
 </style>
@@ -64,17 +52,17 @@
 <body>
 <div class="wrap">
   <!-- HEADER -->
-  <div class="head">
+  <div style="display:flex;gap:12px;align-items:baseline;margin-bottom:4px;">
     <h1 class="serif">Cartera + Asesor</h1>
-    <span class="dot" style="width:8px;height:8px;background:var(--amber);border-radius:50%;box-shadow:0 0 10px var(--amber);"></span>
+    <span style="width:8px;height:8px;background:var(--amber);border-radius:50%;box-shadow:0 0 10px var(--amber);"></span>
   </div>
   <p class="sub">📊 Tracker de inversiones + 🧑‍💼 Asesor financiero experto (9 capacidades)</p>
 
-  <!-- TABS PRINCIPALES -->
+  <!-- TABS -->
   <div class="tabs">
     <button class="tab-btn active" onclick="switchTab('cartera')">📊 Mi Cartera</button>
     <button class="tab-btn" onclick="switchTab('asesor')">🧑‍💼 Asesor Experto</button>
-    <button class="tab-btn" onclick="switchTab('faq')">❓ Conceptos</button>
+    <button class="tab-btn" onclick="switchTab('sync')">💾 Sincronizar</button>
   </div>
 
   <!-- TAB 1: MI CARTERA -->
@@ -85,23 +73,22 @@
         <h2>📄 Operaciones</h2>
         <button class="btn" onclick="addBoleto()">+ Agregar boleto</button>
       </div>
-      <div id="alertaActivos" style="display:none;background:rgba(245,166,35,0.1);border:1px solid var(--amber);border-radius:6px;padding:8px;margin-bottom:8px;font-size:11px;color:var(--amber);"></div>
       <div style="overflow-x:auto;">
         <table>
           <thead><tr>
-            <th>Op</th><th>Especie</th><th>ALyC</th><th>Fecha</th><th>Cant</th><th>Precio</th><th style="color:var(--amber);">Neto $</th><th>Días</th><th>Renta</th><th>TEA</th><th></th>
+            <th>Op</th><th>Especie</th><th>ALyC</th><th>Fecha</th><th>Cant</th><th>Precio</th><th style="color:var(--amber);">Neto $</th><th>Días</th><th>Renta</th><th></th>
           </tr></thead>
           <tbody id="boletosTable"></tbody>
         </table>
       </div>
     </div>
 
-    <!-- Activos / Precios -->
+    <!-- Activos -->
     <div class="panel">
       <h2>💠 Activos (Precios actuales)</h2>
       <div style="overflow-x:auto;">
         <table>
-          <thead><tr><th>Ticker</th><th>Tipo</th><th>Precio Actual</th><th>Factor</th><th style="color:var(--green);">Cantidad</th><th style="color:var(--amber);">PPC</th><th style="color:var(--blue);">Valor</th><th style="color:var(--green);">Ganancia</th><th>Acciones</th></tr></thead>
+          <thead><tr><th>Ticker</th><th>Tipo</th><th>Precio Actual</th><th>Factor</th><th style="color:var(--green);">Cant</th><th style="color:var(--amber);">PPC</th><th style="color:var(--blue);">Valor</th><th style="color:var(--green);">Ganancia</th></tr></thead>
           <tbody id="activosTable"></tbody>
         </table>
       </div>
@@ -132,8 +119,7 @@
   <div id="tab-asesor" class="hidden">
     <div class="panel">
       <h2>🧑‍💼 Asesor Financiero Experto</h2>
-      <p class="note">Seleccioná un activo de tu cartera para análisis experto con 9 capacidades.</p>
-      
+      <p class="note">Seleccioná un activo de tu cartera para análisis detallado.</p>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 0;">
         <select id="selectorActivo" onchange="analizarActivoSeleccionado()">
           <option value="">-- Seleccioná activo --</option>
@@ -142,40 +128,34 @@
         <button class="btn primary" onclick="analizarTickerManual()">Analizar</button>
       </div>
     </div>
-
     <div id="analisisContainer"></div>
   </div>
 
-  <!-- TAB 3: CONCEPTOS -->
-  <div id="tab-faq" class="hidden">
+  <!-- TAB 3: SINCRONIZAR -->
+  <div id="tab-sync" class="hidden">
     <div class="panel">
-      <h2>📚 Conceptos Financieros Explicados</h2>
-      <input type="text" id="searchConcepto" placeholder="Buscar concepto..." style="margin-bottom:12px;">
-      <div id="conceptosContainer"></div>
-    </div>
-  </div>
-
-  <!-- MODAL: Editar Activo -->
-  <div id="modalActivo" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);z-index:999;overflow:auto;padding:20px;">
-    <div style="background:var(--panel);border:1px solid var(--border);border-radius:12px;max-width:500px;margin:40px auto;padding:20px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-        <h2 id="modalTitle" style="margin:0;color:var(--amber);">Editar Activo</h2>
-        <button style="background:none;border:none;color:var(--text);font-size:20px;cursor:pointer;" onclick="closeModal()">✕</button>
+      <h2>💾 Sincronizar Datos entre dispositivos</h2>
+      <p class="note">Exportá tu cartera desde un dispositivo e importála en otro. Los datos se guardan automáticamente en localStorage.</p>
+      
+      <div style="margin-bottom:24px;">
+        <h3 style="color:var(--green);">📤 Exportar (Descargar JSON)</h3>
+        <p class="note">Generá un archivo JSON con toda tu cartera. Guardalo en tu PC o la nube.</p>
+        <button class="btn primary" style="width:100%;margin-bottom:8px;" onclick="exportarJSON()">⬇️ Descargar JSON</button>
+        <textarea id="jsonExport" style="height:150px;font-size:11px;margin-bottom:8px;font-family:'JetBrains Mono',monospace;" readonly></textarea>
+        <button class="btn" style="width:100%;" onclick="copiarAlPortapapeles()">📋 Copiar al portapapeles</button>
+        <div id="msgExport"></div>
       </div>
-      <div class="lbl">Tipo</div>
-      <select id="modalTipo" style="margin-bottom:12px;">
-        <option value="accion">Acción</option>
-        <option value="cedear">CEDEAR</option>
-        <option value="bono">Bono</option>
-        <option value="cripto">Cripto</option>
-        <option value="etf">ETF</option>
-        <option value="otro">Otro</option>
-      </select>
-      <div class="lbl">Precio Actual</div>
-      <input type="text" id="modalPrecio" class="mono" placeholder="0" style="margin-bottom:12px;">
-      <div class="lbl">Factor</div>
-      <input type="text" id="modalFactor" class="mono" placeholder="1" style="margin-bottom:12px;">
-      <button class="btn primary" style="width:100%;" onclick="guardarActivo()">Guardar</button>
+
+      <hr style="border:1px solid var(--border);margin:20px 0;">
+
+      <div style="margin-bottom:24px;">
+        <h3 style="color:var(--blue);">📥 Importar (Cargar JSON)</h3>
+        <p class="note">Pega el contenido JSON desde otro dispositivo o archivo.</p>
+        <textarea id="jsonImport" style="height:150px;font-size:11px;margin-bottom:8px;font-family:'JetBrains Mono',monospace;" placeholder="Pega aquí el JSON..."></textarea>
+        <button class="btn primary" style="width:100%;margin-bottom:8px;" onclick="importarJSON()">⬆️ Importar Datos</button>
+        <button class="btn danger" style="width:100%;" onclick="limpiarDatos()">🗑️ Limpiar todo (irreversible)</button>
+        <div id="msgImport"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -186,23 +166,20 @@ if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch
 const C={amber:"#f5a623",green:"#3fb950",red:"#f85149",muted:"#8b887f",blue:"#58a6ff"};
 const MS=86400000;
 
-let S={boletos:[],activos:{},modalTicket:null};
+let S={boletos:[],activos:{}};
 
-// INIT
 function init(){
   const saved=localStorage.getItem("cartera_asesor_v1");
   if(saved){try{S=JSON.parse(saved);}catch(e){}}
   render();
-  renderConceptos();
 }
 
 function save(){localStorage.setItem("cartera_asesor_v1",JSON.stringify(S));}
 
-// TABS
 function switchTab(tab){
   document.getElementById('tab-cartera').classList.toggle('hidden',tab!=='cartera');
   document.getElementById('tab-asesor').classList.toggle('hidden',tab!=='asesor');
-  document.getElementById('tab-faq').classList.toggle('hidden',tab!=='faq');
+  document.getElementById('tab-sync').classList.toggle('hidden',tab!=='sync');
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   event.target.classList.add('active');
 }
@@ -213,43 +190,17 @@ function addBoleto(){
   save();render();
 }
 
-function delBoleto(id){S.boletos=S.boletos.filter(b=>b.id!==id);save();render();}
+function delBoleto(id){
+  S.boletos=S.boletos.filter(b=>b.id!==id);
+  save();render();
+}
 
 function editBoleto(id,field,value){
   const b=S.boletos.find(x=>x.id===id);
-  if(b){b[field]=field==='cant'||field==='precio'?parseFloat(value)||0:value;save();render();}
-}
-
-// ACTIVOS
-function syncActivos(){
-  const tickers=[...new Set(S.boletos.map(b=>b.ticker).filter(Boolean))];
-  tickers.forEach(t=>{if(!S.activos[t]){S.activos[t]={tipo:"accion",precio:"",factor:1};}});
-  const sinPrecio=tickers.filter(t=>!num(S.activos[t]?.precio));
-  const alert=document.getElementById("alertaActivos");
-  if(sinPrecio.length){
-    alert.style.display="block";
-    alert.innerHTML=`⚠️ Sin precio: <b>${sinPrecio.join(", ")}</b>. Cargá precio actual.`;
-  }else{
-    alert.style.display="none";
+  if(b){
+    b[field]=field==='cant'||field==='precio'?parseFloat(value)||0:value;
+    save();render();
   }
-}
-
-function editarActivo(ticker){
-  const a=S.activos[ticker];
-  S.modalTicket=ticker;
-  document.getElementById("modalTitle").textContent="Editar "+ticker;
-  document.getElementById("modalTipo").value=a?.tipo||"accion";
-  document.getElementById("modalPrecio").value=a?.precio||"";
-  document.getElementById("modalFactor").value=a?.factor||1;
-  document.getElementById("modalActivo").style.display="block";
-}
-
-function closeModal(){document.getElementById("modalActivo").style.display="none";S.modalTicket=null;}
-
-function guardarActivo(){
-  if(!S.modalTicket)return;
-  S.activos[S.modalTicket]={tipo:document.getElementById("modalTipo").value,precio:parseFloat(document.getElementById("modalPrecio").value)||0,factor:parseFloat(document.getElementById("modalFactor").value)||1};
-  save();closeModal();render();
 }
 
 // HELPERS
@@ -258,6 +209,12 @@ const fARS=n=>new Intl.NumberFormat("es-AR",{style:"currency",currency:"ARS"}).f
 const fPct=n=>(n>=0?"+":"")+(n*100).toFixed(2)+"%";
 const daysBetween=s=>{const f=new Date(s);return isNaN(f)?0:Math.max(0,Math.round((new Date()-f)/MS));};
 const col=n=>n===null||n===undefined?"var(--muted)":n>0?"var(--green)":"var(--red)";
+
+// SYNC
+function syncActivos(){
+  const ts=[...new Set(S.boletos.map(b=>b.ticker).filter(Boolean))];
+  ts.forEach(t=>{if(!S.activos[t]){S.activos[t]={tipo:"accion",precio:"",factor:1};}});
+}
 
 // RENDER
 function render(){
@@ -279,7 +236,7 @@ function renderBoletos(){
     const renta=valor-neto,rentaPct=neto?renta/neto:0;
     const tr=document.createElement("tr");
     tr.innerHTML=`
-      <td><select data-id="${b.id}" onchange="editBoleto('${b.id}','op',this.value)" style="width:60px;padding:4px;"><option value="compra" ${b.op==="compra"?"selected":""}>C</option><option value="venta" ${b.op==="venta"?"selected":""}>V</option></select></td>
+      <td><select onchange="editBoleto('${b.id}','op',this.value)" style="width:60px;padding:4px;"><option value="compra" ${b.op==="compra"?"selected":""}>C</option><option value="venta" ${b.op==="venta"?"selected":""}>V</option></select></td>
       <td><input class="mono" value="${b.ticker}" onchange="editBoleto('${b.id}','ticker',this.value)" style="width:80px;"></td>
       <td><input class="mono" value="${b.alyc}" onchange="editBoleto('${b.id}','alyc',this.value)" placeholder="Rava/IEB+" style="width:70px;"></td>
       <td><input class="mono" value="${b.fecha}" onchange="editBoleto('${b.id}','fecha',this.value)" style="width:100px;"></td>
@@ -288,8 +245,7 @@ function renderBoletos(){
       <td class="mono" style="color:var(--amber);font-weight:600;">${fARS(neto)}</td>
       <td class="mono" style="color:var(--muted);">${dias}</td>
       <td class="mono" style="color:${col(renta)};font-size:11px;">${fARS(renta)}<br>${fPct(rentaPct)}</td>
-      <td class="mono" style="color:${col(rentaPct)};font-weight:600;font-size:11px;">${rentaPct!==0?fPct(rentaPct/(dias/365||1)):"-"}</td>
-      <td><button class="btn sm" onclick="delBoleto('${b.id}')">✕</button></td>
+      <td><button class="btn" onclick="delBoleto('${b.id}')" style="font-size:11px;">✕</button></td>
     `;
     tb.appendChild(tr);
   });
@@ -305,15 +261,14 @@ function renderActivos(){
     const precio=num(a.precio),factor=num(a.factor)||1,valor=cant*precio*factor,ganancia=valor-neto,gananciaPct=ganancia/neto;
     const tr=document.createElement("tr");
     tr.innerHTML=`
-      <td class="mono" style="cursor:pointer;color:var(--amber);font-weight:600;" onclick="editarActivo('${ticker}')">${ticker}</td>
+      <td class="mono" style="color:var(--amber);font-weight:600;">${ticker}</td>
       <td>${a.tipo}</td>
       <td><input class="mono" value="${precio}" onchange="S.activos['${ticker}'].precio=parseFloat(this.value)||0;save();render();" style="width:100px;"></td>
       <td><input class="mono" value="${factor}" onchange="S.activos['${ticker}'].factor=parseFloat(this.value)||1;save();render();" style="width:60px;"></td>
-      <td class="mono" style="color:var(--green);font-weight:600;text-align:right;">${cant}</td>
+      <td class="mono" style="color:var(--green);text-align:right;">${cant}</td>
       <td class="mono" style="color:var(--amber);text-align:right;">${fARS(ppc)}</td>
       <td class="mono" style="color:var(--blue);text-align:right;">${fARS(valor)}</td>
-      <td class="mono" style="color:${col(ganancia)};font-weight:600;text-align:right;">${fARS(ganancia)}<br>${fPct(gananciaPct)}</td>
-      <td><button class="btn sm" onclick="editarActivo('${ticker}')">editar</button></td>
+      <td class="mono" style="color:${col(ganancia)};font-weight:600;text-align:right;">${fARS(ganancia)} (${fPct(gananciaPct)})</td>
     `;
     ab.appendChild(tr);
   });
@@ -343,11 +298,7 @@ function renderSelectorAsesor(){
 // ASESOR
 function analizarActivoSeleccionado(){
   const ticker=document.getElementById("selectorActivo").value;
-  if(ticker){
-    const boletos=S.boletos.filter(b=>b.ticker===ticker&&b.op==="compra");
-    const activo=S.activos[ticker];
-    analizarActivo(ticker,activo,boletos);
-  }
+  if(ticker){const boletos=S.boletos.filter(b=>b.ticker===ticker);const activo=S.activos[ticker];analizarActivo(ticker,activo,boletos);}
 }
 
 function analizarTickerManual(){
@@ -360,169 +311,104 @@ function analizarTickerManual(){
 
 function analizarActivo(ticker,activo,boletos){
   const container=document.getElementById("analisisContainer");
-  if(!activo){
-    container.innerHTML=`<div class="panel" style="color:var(--red);">⚠️ Activo no encontrado en cartera.</div>`;
+  if(!activo||!num(activo.precio)){
+    container.innerHTML=`<div class="panel error">⚠️ Activo no encontrado o sin precio actual. Cargá los datos en la cartera primero.</div>`;
     return;
   }
-  
   const cant=boletos.reduce((s,b)=>s+num(b.cant),0),neto=boletos.reduce((s,b)=>s+num(b.cant)*num(b.precio),0),ppc=cant?neto/cant:0;
   const precioActual=num(activo.precio),factor=num(activo.factor)||1,valor=cant*precioActual*factor,ganancia=valor-neto,gananciaPct=neto?ganancia/neto:0;
-  const signal=precioActual>ppc?'green':precioActual<ppc?'red':'yellow';
-  
-  // Análisis técnico simulado
-  const rsi=Math.floor(Math.random()*100);
-  const macd=Math.random()>0.5?'Cruce positivo':'Cruce negativo';
-  const vol=Math.random()>0.5?'Por encima del promedio':'Por debajo del promedio';
-  
-  // Niveles
-  const soporte1=ppc*0.95,soporte2=ppc*0.90,resist1=ppc*1.05,resist2=ppc*1.10;
-  const stop=ppc*0.92,tp1=ppc*1.08,tp2=ppc*1.15;
   
   let html=`
     <div class="panel">
       <h2>${ticker}</h2>
       <div class="grid">
-        <div class="card">
-          <div class="lbl">Precio Actual</div>
-          <div class="big" style="color:var(--amber);">${fARS(precioActual)}</div>
-        </div>
-        <div class="card">
-          <div class="lbl">Tu PPC</div>
-          <div class="big">${fARS(ppc)}</div>
-        </div>
-        <div class="card">
-          <div class="lbl">Renta</div>
-          <div class="big" style="color:${col(ganancia)};">${fPct(gananciaPct)}</div>
-        </div>
+        <div class="card"><div class="lbl">Precio Actual</div><div class="big" style="color:var(--amber);">${fARS(precioActual)}</div></div>
+        <div class="card"><div class="lbl">Tu PPC</div><div class="big">${fARS(ppc)}</div></div>
+        <div class="card"><div class="lbl">Renta</div><div class="big" style="color:${col(ganancia)};">${fPct(gananciaPct)}</div></div>
       </div>
     </div>
-
     <div class="panel">
-      <h2>📊 1. ANÁLISIS DE ACTIVOS (Fundamentos)</h2>
-      <h3 style="color:var(--green);">✓ Fortalezas clave</h3>
-      <ul class="note" style="margin:0;padding-left:16px;">
-        <li>Modelo de negocio establecido</li>
-        <li>Exposición a mercados emergentes</li>
-        <li>Crecimiento en largo plazo</li>
-      </ul>
-      <h3 style="color:var(--red);">✗ Riesgos principales</h3>
-      <ul class="note" style="margin:0;padding-left:16px;">
-        <li>Volatilidad de mercado</li>
-        <li>Riesgos macroeconómicos</li>
-        <li>Competencia sectorial</li>
-      </ul>
+      <h2>📊 1. Análisis de Activos</h2>
+      <p class="note"><b>Sector:</b> ${activo.tipo.toUpperCase()}</p>
+      <p class="note"><b>Posición:</b> ${cant} unidades | ${fARS(neto)} invertido</p>
+      <p class="note">Analiza fundamentos, P/E, volatilidad, perspectivas del sector y riesgos clave.</p>
     </div>
-
     <div class="panel">
-      <h2>📈 2. ANÁLISIS TÉCNICO</h2>
+      <h2>📈 2. Análisis Técnico</h2>
+      <p class="note">RSI, MACD, Medias Móviles, Bollinger, Volumen. Comparte un gráfico de TradingView para análisis detallado.</p>
+    </div>
+    <div class="panel">
+      <h2>🎯 3. Niveles Clave</h2>
       <table>
-        <tr><td><b>RSI (14)</b></td><td>${rsi} (${rsi>70?'Sobrecompra':rsi<30?'Sobreventa':'Neutral'})</td></tr>
-        <tr><td><b>MACD</b></td><td>${macd}</td></tr>
-        <tr><td><b>Volumen</b></td><td>${vol}</td></tr>
-        <tr><td><b>Tendencia</b></td><td>${precioActual>ppc?'Alcista':'Bajista'}</td></tr>
+        <tr><td><b>PPC</b></td><td>${fARS(ppc)}</td></tr>
+        <tr><td><b>Precio Actual</b></td><td>${fARS(precioActual)}</td></tr>
+        <tr><td><b>Soporte 1</b></td><td>${fARS(ppc*0.95)}</td></tr>
+        <tr><td><b>Resistencia 1</b></td><td>${fARS(ppc*1.05)}</td></tr>
       </table>
     </div>
-
     <div class="panel">
-      <h2>🎯 3. NIVELES CLAVE Y ALERTAS</h2>
-      <table>
-        <tr><th>Nivel</th><th>Precio</th><th>Acción</th></tr>
-        <tr><td><b style="color:var(--red);">Stop Loss</b></td><td>${fARS(stop)}</td><td>VENDER TODO</td></tr>
-        <tr><td><b style="color:var(--green);">Soporte 1</b></td><td>${fARS(soporte1)}</td><td>HOLD / COMPRAR</td></tr>
-        <tr><td><b style="color:var(--blue);">PPC</b></td><td>${fARS(ppc)}</td><td>REFERENCIA</td></tr>
-        <tr><td><b style="color:var(--amber);">Resistencia 1</b></td><td>${fARS(resist1)}</td><td>VENDER 50%</td></tr>
-        <tr><td><b style="color:var(--green);">TP</b></td><td>${fARS(tp1)}</td><td>GANANCIA REALISTA</td></tr>
-      </table>
+      <h2>💡 4. Estrategias Recomendadas</h2>
+      <p class="note">${gananciaPct>0.05?'🟢 HOLD con take profit en resistencia':'🟡 HOLD o agregar en zonas de soporte'}</p>
     </div>
-
     <div class="panel">
-      <h2>💡 4. ESTRATEGIAS RECOMENDADAS</h2>
-      ${gananciaPct<-0.10?`
-        <div class="scenario red">
-          <b>🔴 DEFENSIVA (en rojo)</b><br>
-          <small>Evalúa si mantener por fundamentos o salir. Si mantienes, stop en ${fARS(stop)}.</small>
-        </div>
-      `:''}
-      ${gananciaPct>=0&&gananciaPct<0.05?`
-        <div class="scenario yellow">
-          <b>🟡 NEUTRAL (pequeña ganancia)</b><br>
-          <small>HOLD con stop en PPC. Espera que se fortalezca.</small>
-        </div>
-      `:''}
-      ${gananciaPct>=0.05?`
-        <div class="scenario green">
-          <b>🟢 ALCISTA (ganancia confirmada)</b><br>
-          <small>Fase 1: HOLD. Fase 2 (si sube 5%): Vender 50%. Fase 3: Let ride con stop en soporte.</small>
-        </div>
-      `:''}
-      <p class="note"><b>DCA alternativo:</b> Si crees en largo plazo, agrega en zonas de soporte.</p>
-    </div>
-
-    <div class="panel">
-      <h2>🔮 5. SIMULADOR DE ESCENARIOS</h2>
-      <div class="scenario green">
-        <b>🟢 OPTIMISTA (Prob: 30%)</b><br>
-        <small>Catalizadores: Noticias positivas, crecimientos de ganancias.</small><br>
-        <small>Target: +15%-25% en 3-6 meses</small>
-      </div>
-      <div class="scenario yellow">
-        <b>🟡 BASE (Prob: 50%)</b><br>
-        <small>Escenario más probable: lateral 5%-10%.</small><br>
-        <small>Target: +5% en 1-3 meses</small>
-      </div>
-      <div class="scenario red">
-        <b>🔴 PESIMISTA (Prob: 20%)</b><br>
-        <small>Riesgos: Noticias negativas, macro adverso.</small><br>
-        <small>Target: -7%-15% en corto plazo</small>
-      </div>
-    </div>
-
-    <div class="panel">
-      <h2>⚠️ 6. ANÁLISIS DE RIESGO/RETORNO</h2>
-      <table>
-        <tr><td><b>Retorno Esperado (base)</b></td><td>+5% en 1-3 meses</td></tr>
-        <tr><td><b>Máximo Drawdown</b></td><td>${fPct(0.15)} (desde máximo)</td></tr>
-        <tr><td><b>Relación R/R</b></td><td>1:2 (Riesgo $100 → Ganancia $200)</td></tr>
-        <tr><td><b>Tamaño de posición</b></td><td>2-5% del portafolio para este nivel de riesgo</td></tr>
-      </table>
-    </div>
-
-    <div class="next-steps">
-      <b>📌 Próximos pasos concretos:</b>
-      <ol>
-        <li>Establecé alertas en tu broker: Soporte ${fARS(soporte1)}, Resistencia ${fARS(resist1)}, Stop ${fARS(stop)}</li>
-        <li>Lee noticias recientes del sector en Bloomberg, Reuters o Yahoo Finance</li>
-        <li>Revisa el gráfico diario en TradingView: identifica si hay cruce de medias móviles</li>
+      <h2>📌 Próximos pasos</h2>
+      <ol style="font-size:11px;margin:8px 0;padding-left:16px;">
+        <li>Monitorea los niveles clave establecidos</li>
+        <li>Lee noticias recientes del sector</li>
+        <li>Evalúa si la posición se ajusta a tu tolerancia de riesgo</li>
       </ol>
     </div>
   `;
-  
   container.innerHTML=html;
 }
 
-// CONCEPTOS
-function renderConceptos(){
-  const conceptos={
-    'P/E':{titulo:'P/E (Precio/Ganancia)',explicacion:'Ratio que divide el precio de la acción por su ganancia por acción. P/E bajo puede indicar infravaluación, alto puede significar crecimiento esperado. Ej: Acción a $100 con ganancia de $10 = P/E 10.',categoria:'Análisis Fundamental'},
-    'RSI':{titulo:'RSI (Índice de Fuerza Relativa)',explicacion:'Indicador técnico entre 0-100. >70 = sobrecompra (potencial reversión bajista), <30 = sobreventa (potencial reversión alcista). Útil en plazos de 1 min a 1 día.',categoria:'Análisis Técnico'},
-    'MACD':{titulo:'MACD (Moving Average Convergence Divergence)',explicacion:'Compara dos medias móviles. Cruce positivo = señal alcista, negativo = bajista. Divergencias pueden anticipar reversiones.',categoria:'Análisis Técnico'},
-    'Soporte':{titulo:'Soporte',explicacion:'Precio donde hay demanda histórica y el activo suele rebotar hacia arriba. Romper soporte es señal bajista.',categoria:'Niveles'},
-    'Resistencia':{titulo:'Resistencia',explicacion:'Precio donde hay presión vendedora y el activo suele rechazarse hacia abajo. Romper resistencia es señal alcista.',categoria:'Niveles'},
-    'DCA':{titulo:'DCA (Dollar Cost Averaging)',explicacion:'Estrategia: comprar montos fijos en intervalos regulares sin importar el precio. Reduce riesgo de comprar en máximo. Ideal para inversores conservadores.',categoria:'Estrategias'},
-    'Drawdown':{titulo:'Drawdown',explicacion:'Caída máxima desde un pico hasta un valle. Ej: Máximo $1000 → Mínimo $800 = 20% de drawdown. Importante medir riesgo.',categoria:'Riesgo'},
-    'Volatilidad':{titulo:'Volatilidad',explicacion:'Medida de cuánto fluctúa el precio. Alta volatilidad = mayor riesgo pero potencial retorno. Baja volatilidad = más estable pero menos oportunidades.',categoria:'Riesgo'},
-    'Sharpe Ratio':{titulo:'Sharpe Ratio',explicacion:'Mide retorno por unidad de riesgo tomado. Ratio >1 es bueno, >2 excelente. Compara estrategias considerando riesgo.',categoria:'Riesgo'},
-    'CCL':{titulo:'CCL (Contado con Liquidación)',explicacion:'En Argentina: compra de dólar vendiendo bonos. Tasa paralela del dólar cuando hay restricciones de cambio oficial. Indicador de presión sobre el peso.',categoria:'Argentina'},
-  };
-  
-  const container=document.getElementById("conceptosContainer");
-  container.innerHTML=Object.entries(conceptos).map(([key,c])=>`
-    <div class="panel">
-      <h3>${c.titulo}</h3>
-      <p class="note">${c.explicacion}</p>
-      <div class="tag">${c.categoria}</div>
-    </div>
-  `).join('');
+// EXPORT/IMPORT
+function exportarJSON(){
+  const json=JSON.stringify(S,null,2);
+  document.getElementById("jsonExport").value=json;
+  document.getElementById("msgExport").innerHTML='<div class="success">✅ JSON generado. Cópialo o descárgalo.</div>';
+}
+
+function copiarAlPortapapeles(){
+  const text=document.getElementById("jsonExport").value;
+  navigator.clipboard.writeText(text).then(()=>{
+    document.getElementById("msgExport").innerHTML='<div class="success">✅ Copiado al portapapeles</div>';
+    setTimeout(()=>{document.getElementById("msgExport").innerHTML='';},3000);
+  });
+}
+
+function importarJSON(){
+  const jsonText=document.getElementById("jsonImport").value.trim();
+  if(!jsonText){
+    document.getElementById("msgImport").innerHTML='<div class="error">❌ Pega un JSON válido</div>';
+    return;
+  }
+  try{
+    const data=JSON.parse(jsonText);
+    if(data.boletos&&data.activos){
+      S=data;
+      save();
+      render();
+      document.getElementById("msgImport").innerHTML='<div class="success">✅ Datos importados correctamente</div>';
+      document.getElementById("jsonImport").value='';
+      setTimeout(()=>{document.getElementById("msgImport").innerHTML='';},3000);
+    }else{
+      document.getElementById("msgImport").innerHTML='<div class="error">❌ Formato JSON inválido</div>';
+    }
+  }catch(e){
+    document.getElementById("msgImport").innerHTML='<div class="error">❌ Error al parsear JSON: '+e.message+'</div>';
+  }
+}
+
+function limpiarDatos(){
+  if(confirm('⚠️ ADVERTENCIA: Esto eliminará TODA tu cartera. ¿Estás seguro?')){
+    if(confirm('🚨 ÚLTIMA CONFIRMACIÓN: Esta acción es IRREVERSIBLE. ¿Continuar?')){
+      S={boletos:[],activos:{}};
+      save();
+      render();
+      document.getElementById("msgImport").innerHTML='<div class="success">✅ Datos eliminados</div>';
+    }
+  }
 }
 
 init();
